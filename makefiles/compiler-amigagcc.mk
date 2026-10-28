@@ -8,12 +8,13 @@ CFLAGS += -mcpu=68000 -msoft-float
 # Select clib2 headers as well as its libraries. Compiling against newlib
 # headers and linking with clib2 can leave newlib-only symbols unresolved.
 CFLAGS += -mcrt=$(AMIGA_CRT)
-CFLAGS += -I$(APP_INCLUDE_DIR)
-CFLAGS += -I$(CONFIG_NIO_INCLUDE_DIR)
-CFLAGS += -I$(PLATFORM_INCLUDE_DIR)
+# fujinet_disk_iface.h, the Amiga disk-device interface the media-replacement diagnostics use, belongs to
+# the core apps.
+NIO_CORE_APPS ?= ../nio-core-apps
+CFLAGS += -I$(NIO_CORE_APPS)/include/platform/amiga
+CFLAGS += -I$(SUPPORT_INCLUDE_DIR)
 CFLAGS += -I$(NIO_INCLUDE_DIR)
 CFLAGS += -I$(FUJINET_NIO_DRIVER_BUILD)/include
-CFLAGS += -DFNSVC_LIST_MAX_PAYLOAD=$(FNSVC_LIST_MAX_PAYLOAD)
 ifeq ($(AMIGA_WB13),1)
 CFLAGS += -D__KICK13__
 endif

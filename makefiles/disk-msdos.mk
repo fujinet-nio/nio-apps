@@ -13,6 +13,6 @@ disk-msdos: all | $(DISK_DIR)
 	rm -rf "$(MSDOS_STAGE_DIR)"
 	mkdir -p "$(MSDOS_STAGE_DIR)"
 	$(foreach bin,$(MSDOS_DISK_BINS),cp "$(BIN_DIR)/$(bin)" "$(MSDOS_STAGE_DIR)/$(call MSDOS_IMAGE_NAME,$(bin))";)
-	python3 msdos/scripts/create_msdos_img.py -i "$(MSDOS_STAGE_DIR)" -o "$(MSDOS_IMAGE)"
+	python3 tools/create_msdos_img.py -i "$(MSDOS_STAGE_DIR)" -o "$(MSDOS_IMAGE)"
 
 DISK_TARGETS += disk-msdos

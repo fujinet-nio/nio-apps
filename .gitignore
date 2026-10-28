@@ -1,7 +1,7 @@
 build/
-msdos/*.obj
-msdos/*.o
-msdos/*.err
+diagnostics/msdos/**/*.obj
+diagnostics/msdos/**/*.o
+diagnostics/msdos/**/*.err
 
 /scratch/
 
