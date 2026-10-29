@@ -7,9 +7,12 @@ AMIGA_CRT_wb13 := nix13
 AMIGA_CRT_wb31 := clib2
 AMIGA_CRT_wb32 := clib2
 
-.PHONY: all all-targets clean disk disk-all $(TARGETS)
+.PHONY: all all-targets clean disk disk-all test-httphead $(TARGETS)
 
 all: $(DEFAULT_TARGET)
+
+test-httphead:
+	bash tests/run_httphead_test.sh
 
 msdos atari bbc bbc-clib linux:
 	$(MAKE) -f makefiles/build.mk TARGET=$@

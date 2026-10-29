@@ -39,6 +39,7 @@ build links that machine's few lines of glue. See `docs/ARCHITECTURE.md`.
 | appstore | `astest` | The per-application key/value store that lives on the FujiNet. Self-checking. |
 | network | `httpget` | A web request from start to finish. **`FN_ERR_NOT_READY` is not an error.** Read this first. |
 | network | `httppost` | Send a request body; committing it with a zero-length write. |
+| network | `httphead` | Request headers on GET and POST, a known body length and larger reads. |
 | network | `jsonq` | Have the FujiNet pull one value out of a JSON document for you. |
 | network | `tcppipe` | A permanent connection used as a pipe: `FN_OPEN_KEEP`, framing, `fn_read_available`. |
 | network | `waitany` | Several sessions at once: `fn_ready`, and the hardware hint (Atari PROC) to wait without polling. |
@@ -51,10 +52,12 @@ Where each builds:
 |---|:-:|:-:|:-:|:-:|:-:|
 | `fujiinfo` `clock` `wifitest` `wificonfigtest` `astest` `httpget` `httppost` `fhttpbin` | yes | yes | yes | yes | yes |
 | `jsonq` `tcppipe` `waitany` `diskinfo` | yes | no | yes | yes | yes |
+| `httphead` | yes | no | yes | yes | yes |
 
 (The BBC library has no DiskDevice client, `fn_ready` or `fn_read_available` yet, and its JSON translation
 goes through a different interface. An example that does not fit a machine says so in a `NOT_ON` file in its
 folder; `make` leaves it out there.)
+The BBC ROM-backed open also cannot supply arbitrary HTTP request headers.
 
 `diagnostics/` is not a tutorial. It holds tools that are about one machine: `diagnostics/amiga/` (driver and
 DOS-node tests run by the Amiberry integration suite), `diagnostics/atari/fsioraw` (one raw SIO command) and
