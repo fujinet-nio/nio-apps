@@ -57,6 +57,7 @@ DIAG_LIB_SRCS := $(if $(filter msdos,$(PLATFORM)),diagnostics/msdos/lib/nio.c)
 NO_NIO_LIB_PROGRAMS := irqmon     # does not use fujinet-nio-lib at all
 NO_DIAG_LIB_PROGRAMS := irqmon    # nor the MS-DOS probe library
 ASM_SRCS := $(sort $(wildcard diagnostics/$(PLATFORM)/*.s))
+EXTRA_OBJS_streamtest := $(OBJ_DIR)/diagnostics/atari/stream_fx.o
 EXTRA_OBJS_checksumbench := $(OBJ_DIR)/diagnostics/amiga/checksumbench_asm.o
 
 # What an example may use from the machine (platform/include/nio_example.h). Nothing is linked into a

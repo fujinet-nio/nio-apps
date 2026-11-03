@@ -50,3 +50,10 @@ disk-all:
 
 clean:
 	rm -rf build
+
+.PHONY: atari-stream-disk
+atari-stream-disk:
+	$(MAKE) -f makefiles/build.mk TARGET=atari streamtest
+	mkdir -p build/atari/stream-disk
+	cp build/atari/bin/streamtest.xex build/atari/stream-disk/STREAM.XEX
+	dir2atr -b PicoBoot406 build/atari/streamtest.atr build/atari/stream-disk
