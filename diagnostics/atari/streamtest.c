@@ -1,4 +1,4 @@
-/* Dedicated experimental stream test. Host: tools/stream_echo.py --host 0.0.0.0
+/* Dedicated version 1 stream test. Host: tools/stream_echo.py --host 0.0.0.0
  * Hardware verdict belongs to the user: DLI/VBI/sound are deliberately active.
  */
 #include <conio.h>
@@ -17,7 +17,7 @@ static unsigned char sent, got, size, state, status;
 static unsigned char pattern(unsigned char n) { return (unsigned char)(stream_passes+n*17); }
 static void banner(void) {
     clrscr();
-    cprintf("Small NIO stream - experimental\r\n\r\n");
+    cprintf("Small NIO stream - version 1\r\n\r\n");
     cprintf("D: colour bands  S: sound  Q: stop\r\n");
     cprintf("VBI and DLI run during polled SIO.\r\n");
     cprintf("No U1MB tables or HSIO setting changed.\r\n\r\n");
@@ -57,12 +57,12 @@ int main(void) {
                 else if(io.flags&1) status=6;
             }
         }
+        if(status && status!=3 && status!=4) ++stream_errors;
         gotoxy(0,7);cprintf("Echoes %5u  Errors %5u",stream_passes,stream_errors);
         gotoxy(0,9);cprintf("Frame %5u  Last status %3u",stream_frames,status);
         gotoxy(0,11);cprintf("Size %3u  Sent %3u  Read %3u",size,sent,got);
         gotoxy(0,13);cprintf("DLI %s  Sound %s",stream_dli?"on ":"off",stream_sound?"on ":"off");
         if(status && status!=3 && status!=4) {
-            ++stream_errors;
             gotoxy(0,16);cprintf("Stopped: error %u. Press a key.",status);cgetc();break;
         }
     }

@@ -1,7 +1,8 @@
-# STREAMTEST: experimental small NIO on Atari
+# STREAMTEST: small NIO stream v1 on Atari
 
-Build with the matching workspace library and firmware; this is not yet a
-released protocol. The established NIO game build remains available separately.
+Build with the workspace library and firmware supporting small-stream version 1.
+Older releases may not contain it. The established NIO game build remains
+available separately.
 
 ```sh
 source ../../scripts/env.sh
@@ -54,3 +55,18 @@ python3 integration-tests/atari-sio/run_stream_test.py --output /tmp/stream-evid
 The test covers all 120 block sizes, verifies zero mismatches, toggles D/S,
 checks VBI progression and closes cleanly. It is evidence of functional
 integration, not a claim that real Atari timing is safe.
+
+## Hardware acceptance and troubleshooting
+
+The initial hardware failure (status 5 before the first byte) was a blocked
+server firewall. After allowing TCP 9004, 459 stock-speed echoes and 600 echoes
+starting with U1MB HSIO enabled passed with DLI and sound on, without errors.
+
+Status 5 is a firmware I/O failure, not client serial failure (128). Open success
+can precede TCP connection completion. Confirm the exact URL, LAN bind and firewall,
+and inspect the echo server's `connected` message plus FujiNet TCP logs. Busy (3)
+and NotReady (4) are progress states. Do not disable DLI/U1MB solely on status 5.
+
+For intended users, limitations and application costs, see fujinet-nio-lib's
+`docs/atari-small-stream.md`. This diagnostic deliberately stresses that API;
+it is not a general performance benchmark or a replacement for game testing.

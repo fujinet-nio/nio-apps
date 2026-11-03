@@ -117,6 +117,6 @@ Start the servers on that PC with `../fujinet-nio/scripts/start_test_services.sh
    beside it.
 5. Add a row to the table above and to the device's `README.md`.
 
-The Atari-only [experimental small-stream diagnostic](docs/atari-small-stream.md)
+The Atari-only [small-stream diagnostic](docs/atari-small-stream.md)
 has its own boot disk (`make atari-stream-disk`) and fragmented echo server. It
 exercises the optional block-pointer ASM API with VBI sound and DLI colour bands.
